@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>comment ca marche</title>
+    <link rel="stylesheet" href="comment ca marche.css">
+    <script defer src="script.js"></script>
+        
+       
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index2.html">
+              <img src="logo2.png" width="200px" height="50px" alt="Logo">
+            </a>
+          </div>
+        
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#">Solution Business ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">E-commerce</a></li>
+                    <li><a href="#">Marketplace </a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Transporteur ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="Proposer un trajet.html">Proposer un trajet</a></li>
+                    <li><a href="recherche trajet.html">Voir annonce</a></li>
+                    <li><a href="#">comment ça marche?</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Particulier ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="Expédier ou recevoir un colis.html">Expédier ou recevoir un colis</a></li>
+                    <li><a href="devis démenagement.html">Devis déménagement</a></li>
+                    <li><a href="#">comment ça marche?</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Nos Engagements</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <a href="recherche trajet.html" class="btn">Voir les annonces</a>
+            <a href="login.html" class="btn login">Se Connecter</a>
+        </div>
+
+    </nav>
+
+
+<script>document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const navbar = document.querySelector(".navbar");
+
+    // Menu Burger Animation
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+    });
+
+    // Changement de couleur en scroll
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+});</script>
+<main class="hero">
+    <div class="hero-content">
+        <h1>Colisco.<br>comment ça marche ?</h1>
+        <p>
+            Colisco utilise l'espace vide des véhicules en circulation pour faciliter le transport d'objets. Simple, économique et écologique !
+        </p>
+        <div class="hero-buttons">
+            <button class="btn secondary" type="button" onclick="window.location.href='login.html'">Je m'inscris !</button>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="new 11.png"  alt="Application mobile Colisco">
+    </div>
+</main>
+
+<main class="hero-section">
+    <div class="hero-text">
+        <h1>Envoyez ou recevez simplement !</h1>
+        <p>
+            Cocolis est une <strong>solution de livraison</strong> collaborative qui s’appuie sur une communauté de livreurs particuliers et professionnels pour permettre des livraisons <strong>moins chères, plus écologiques dans des délais très courts</strong>, de presque tout, partout en France.
+        </p>
+        <p>
+            Cocolis permet la livraison de <strong>tout qui ne passe pas</strong> par les solutions d'envoi classiques ou qui coûte trop cher à expédier : mobilier, électroménager, vaisselle, objets de déco, miroirs, matériel de jardin, équipements de loisirs, etc.
+        </p>
+        <p>
+            Vous envoyez ou recevez vos objets volumineux, lourds ou fragiles <strong>à moindre coût et rapidement</strong>. Cocolis vous met en relation avec quelqu'un qui fait déjà le trajet !
+        </p>
+        <p>
+            Notre service fonctionne aussi pour les professionnels : si vous êtes <strong>commerçant</strong> et que vous avez besoin d'une nouvelle solution de livraison, contactez-nous pour avoir plus d'infos !
+        </p>
+        <button class="cta-button">Déposer une annonce</button>
+    </div>
+    <div class="hero-image">
+        <img src="box-image.png" alt="Livraison Colisco">
+        <div class="discount-badge">
+            <span>60%</span>
+            <p>moins cher<br>(en passant par nous)</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

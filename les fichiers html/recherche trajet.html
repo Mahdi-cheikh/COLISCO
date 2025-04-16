@@ -1,0 +1,348 @@
+<?php
+session_start(); // Start the session
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transporter des colis </title>
+    <link rel="stylesheet" href="index.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+
+        
+
+       
+
+        /* Main Section */
+        .main-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 80px;
+            background-color: #e1e0e0;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        .main-section .form-container {
+            flex: 2;
+            margin-right: 20px;
+        }
+
+        .main-section .form-container h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #007bff;
+            
+        }
+
+        .main-section .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-section .form-container form input,
+        .main-section .form-container form select {
+            padding: 10px;
+            border: 20px  #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .main-section .form-container form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-section .form-container form button:hover {
+            background-color: #0056b3;
+        }
+
+        .main-section .map-container {
+            flex: 4;
+            z-index: 0;
+            border-radius: 40px;    
+            overflow:hidden;
+            height: 500px;
+            margin-left: -10px;
+          
+
+        
+        }
+
+        .main-section .map-container iframe {
+            width: 100%;
+            height: 100%;
+    
+            
+        }
+
+        /* List Section */
+        .list-section {
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+
+        .list-section .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .list-section .list-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .list-section .list-item .details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .list-section .list-item .details h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .list-section .list-item .details p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .list-section .list-item .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        /* Add a loading spinner */
+    .loading-spinner {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .map-container {
+        position: relative;
+    }
+
+    .map-container.loading .loading-spinner {
+        display: block;
+    }
+
+    .map-container.loading iframe {
+        opacity: 0.5;
+    }
+
+    .form-container img{
+    max-width: 1000px;
+    z-index: 1;
+    height: 170px;
+    width: 170px;
+    margin-right: 0px;
+    margin-left: 310px;
+    margin-top: -50px;
+}
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index2.php">
+              <img src="logo2.png" width="200px" height="50px" alt="Logo">
+            </a>
+        </div>
+        
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#">Solution Business ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">E-commerce</a></li>
+                    <li><a href="#">Marketplace</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Transporteur ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="Proposer un trajet.html">Proposer un trajet</a></li>
+                    <li><a href="recherche trajet.html">Voir annonce</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Particulier ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="Expédier ou recevoir un colis.php">Expédier ou recevoir un colis</a></li>
+                    <li><a href="devis démenagement.html">Devis déménagement</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Nos Engagements</a></li>
+        </ul>
+
+        <div class="nav-buttons">
+            <?php if (isset($_SESSION['user_name'])): ?>
+                <!-- Display profile picture and user name -->
+                <div class="profile">
+                    <img src="utilisateur.png" alt="Profile Picture" class="profile-pic">
+                    <span class="user-name"><?php echo htmlspecialchars($_SESSION['user_name']); ?></span>
+                </div>
+                <a href="logout.php" class="btn login">Se Déconnecter</a>
+            <?php else: ?>
+                <a href="recherche trajet.html" class="btn">Voir les annonces</a>
+                <a href="login.html" class="btn login">Se Connecter</a>
+            <?php endif; ?>
+        </div>
+    </nav>
+
+
+<script>document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const navbar = document.querySelector(".navbar");
+
+    // Menu Burger Animation
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+    });
+
+    // Changement de couleur en scroll
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+});</script>
+
+<section class="main-section">
+    <div class="form-container">
+        <h2>Transportez des colis sur votre trajet</h2>
+        <form>
+            <label>
+                <input type="radio" name="option" id="around-option" onclick="redirectToAroundPage()"> Autour de
+            </label>
+            <label>
+                <input type="radio" name="option" id="route-option" checked> Sur mon trajet
+            </label>
+            <input id="departure-city" type="text" placeholder="Ville de départ">
+            <input id="arrival-city" type="text" placeholder="Ville d'arrivée"> 
+            <button type="button" onclick="updateMap()">Chercher</button>
+            <img src="new 9.png" alt="Smiling Box" height="400px" width="400px">
+        </form>
+    </div>
+
+    <div class="map-container" id="map-container">
+        <div class="loading-spinner"></div>
+        <iframe
+            id="map"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=Tunisie"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </div>
+</section>
+
+<script>
+    function redirectToAroundPage() {
+        // Redirect to another page when "Autour de" is selected
+        window.location.href = "recherche trajets(autour de moi).php"; // Replace "around.html" with the actual page URL
+    }
+
+    function updateMap() {
+        const departureCity = document.getElementById('departure-city').value;
+        const arrivalCity = document.getElementById('arrival-city').value;
+        const mapIframe = document.getElementById('map');
+        const mapContainer = document.getElementById('map-container');
+
+        // Show loading spinner
+        mapContainer.classList.add('loading');
+
+        console.log("Departure City:", departureCity);
+        console.log("Arrival City:", arrivalCity);
+
+        let newSrc = '';
+        if (departureCity && arrivalCity) {
+            // Display directions
+            newSrc = `https://www.google.com/maps/embed/v1/directions?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&origin=${encodeURIComponent(departureCity)}&destination=${encodeURIComponent(arrivalCity)}`;
+        } else if (departureCity) {
+            // Display only the departure city
+            newSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=${encodeURIComponent(departureCity)}`;
+        } else if (arrivalCity) {
+            // Display only the arrival city
+            newSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=${encodeURIComponent(arrivalCity)}`;
+        } else {
+            // Default map view
+            newSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=Tunisie`;
+        }
+
+        // Update the iframe source
+        mapIframe.src = newSrc;
+
+        // Wait for the iframe to load before hiding the spinner
+        mapIframe.onload = () => {
+            mapContainer.classList.remove('loading');
+        };
+    }
+</script>
+       
+
+    
+</body>
+</html>

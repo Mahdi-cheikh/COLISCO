@@ -1,0 +1,353 @@
+<?php
+session_start(); // Start the session
+?>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportez des colis</title>
+    <link rel="stylesheet" href="index.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Navbar */
+
+        
+
+       
+
+        /* Main Section */
+        .main-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 80px;
+            background-color: #e1e0e0;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        .main-section .form-container {
+            flex: 2;
+            margin-right: 20px;
+        }
+
+        .main-section .form-container h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #007bff;
+            
+        }
+
+        .main-section .form-container form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-section .form-container form input,
+        .main-section .form-container form select {
+            padding: 10px;
+            border: 20px  #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .main-section .form-container form button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .main-section .form-container form button:hover {
+            background-color: #0056b3;
+        }
+
+        .main-section .map-container {
+            flex: 4;
+            z-index: 0;
+            border-radius: 40px;    
+            overflow:hidden;
+            height: 500px;
+            margin-left: -10px;
+          
+
+        
+        }
+
+        .main-section .map-container iframe {
+            width: 100%;
+            height: 100%;
+    
+            
+        }
+
+        /* List Section */
+        .list-section {
+            padding: 40px;
+            background-color: #f8f9fa;
+        }
+
+        .list-section .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .list-section .list-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .list-section .list-item .details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .list-section .list-item .details h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .list-section .list-item .details p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        .list-section .list-item .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        /* Add a loading spinner */
+    .loading-spinner {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .map-container {
+        position: relative;
+    }
+
+    .map-container.loading .loading-spinner {
+        display: block;
+    }
+
+    .map-container.loading iframe {
+        opacity: 0.5;
+    }
+
+    .form-container img{
+    max-width: 1000px;
+    z-index: 1;
+    height: 170px;
+    width: 170px;
+    margin-right: 0px;
+    margin-left: 310px;
+    margin-top: -50px;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index2.php">
+                <img src="logo2.png" width="200px" height="50px" alt="Logo">
+            </a>
+        </div>
+        
+      
+
+        <div class="nav-buttons">
+            <a href="login.php" class="btn login">Se Connecter</a>
+        </div>
+
+    </nav>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".nav-links");
+    const navbar = document.querySelector(".navbar");
+
+    // Menu Burger Animation
+    menuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+        menuToggle.classList.toggle("active");
+    });
+
+    // Changement de couleur en scroll
+    window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+});</script>
+
+<section class="main-section">
+    <div class="form-container">
+        <h2>Transportez des colis sur votre trajet</h2>
+        <form>
+            <label>
+                <input type="radio" name="option" id="around-option" checked> Autour de
+            </label>
+            <label>
+                <input type="radio" name="option" id="around-option" onclick="redirectToAroundPage()"> Sur mon trajet
+            </label>
+            <input list="city-options" id="arrival-city" placeholder="Indiquer une ville">
+            <datalist id="city-options">
+                <option value="Ma position actuelle"></option>
+                <option value="Tunis"></option>
+                <option value="Sousse"></option>
+                <option value="Sfax"></option>
+                <option value="Gabès"></option>
+            </datalist>
+            <button type="button" onclick="updateMap()">Chercher</button>
+            <img src="new 9.png" alt="Smiling Box" height="400px" width="400px">
+        </form>
+    </div>
+
+    <div class="map-container" id="map-container">
+        <div class="loading-spinner"></div>
+        <iframe
+            id="map"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=Tunisie"
+            width="600"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy">
+        </iframe>
+    </div>
+</section>
+
+<script>
+     function redirectToAroundPage() {
+        // Redirect to another page when "Autour de" is selected
+        window.location.href = "recherche trajet.php"; // Replace "around.html" with the actual page URL
+    }
+    let currentPosition = null;
+
+    function useCurrentLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    currentPosition = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    console.log("Current Position:", currentPosition);
+
+                    // Update the map with the current location
+                    const mapIframe = document.getElementById('map');
+                    const mapContainer = document.getElementById('map-container');
+                    mapContainer.classList.add('loading');
+
+                    const newSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=${currentPosition.lat},${currentPosition.lng}`;
+                    mapIframe.src = newSrc;
+
+                    mapIframe.onload = () => {
+                        mapContainer.classList.remove('loading');
+                    };
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                    alert("Impossible d'obtenir votre position actuelle.");
+                }
+            );
+        } else {
+            alert("La géolocalisation n'est pas prise en charge par votre navigateur.");
+        }
+    }
+
+    function updateMap() {
+        const arrivalCity = document.getElementById('arrival-city').value;
+        const mapIframe = document.getElementById('map');
+        const mapContainer = document.getElementById('map-container');
+
+        // Show loading spinner
+        mapContainer.classList.add('loading');
+
+        console.log("Arrival City:", arrivalCity);
+
+        if (arrivalCity === "Ma position actuelle") {
+            useCurrentLocation();
+        } else {
+            let newSrc = '';
+            if (arrivalCity) {
+                // Display the city on the map
+                newSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=${encodeURIComponent(arrivalCity)}`;
+            } else {
+                // Default map view if no input is provided
+                newSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCw05vN-M-1LJXxAIEp6HyzXiwA2lxzGl4&q=Tunisie`;
+            }
+
+            // Update the iframe source
+            mapIframe.src = newSrc;
+
+            // Wait for the iframe to load before hiding the spinner
+            mapIframe.onload = () => {
+                mapContainer.classList.remove('loading');
+            };
+        }
+    }
+</script>
+       
+
+    
+</body>
+</html>

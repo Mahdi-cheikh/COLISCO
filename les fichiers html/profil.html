@@ -1,0 +1,83 @@
+<?php
+session_start(); // Start the session
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #d3d3d3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .profile-container {
+            background-color: white;
+            border-radius: 20px;
+            width: 70%;
+            height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80%;
+        }
+        
+        .info {
+            font-size: 18px;
+            line-height: 2;
+        }
+        
+        .highlight-box {
+            background-color: #f9f9a8;
+            border-radius: 20px;
+            width: 50%;
+            height: 100%;
+        }
+        
+        .back-button {
+            align-self: flex-start;
+            background-color: #4a00ff;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .back-button:hover {
+            background-color: #3700cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-content">
+            <div class="info">
+                <p><strong>Nom et Prénom :</strong> <?php echo isset($_SESSION['user_name']) ? htmlspecialchars($_SESSION['user_name']) : 'Non connecté'; ?></p>
+                <p><strong>Email :</strong></p>
+                <p><strong>Type :</strong></p>
+            </div>
+            <div class="highlight-box"></div>
+        </div>
+        <button class="back-button">Retour</button>
+    </div>
+</body>
+</html>
